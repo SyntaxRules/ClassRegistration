@@ -15,3 +15,76 @@ export default function RootLayout({ children }) {
     </html>
   )
 }
+
+
+
+
+<MantineProvider theme={theme}>
+          <AppShell
+            header={{
+              offset: false,
+            }}
+            navbar={{
+              width: 300,
+              breakpoint: 'sm',
+              collapsed: { mobile: !mobileOpened, desktop: true },
+            }}
+          >
+            <AppShell.Header
+              withBorder={false}
+            >
+              <Header
+                mobileOpened={mobileOpened}
+                toggleMobile={toggleMobile}
+              />
+            </AppShell.Header>
+
+            <AppShell.Navbar p="md">
+
+              <div style={{ width: '100%', display: 'flex', flexDirection: 'row-reverse' }}>
+                <Burger color="#523f91" onClick={toggleMobile} opened={mobileOpened} size="md" />
+              </div>
+
+              <Link
+                href="/"
+                onClick={() => toggleMobile(false)}
+                style={styles.headerLink}
+              >
+                <TmatText
+                  fontSize="48px"
+                  text="Home"
+                  variant="purple"
+                />
+              </Link>
+              <Link
+                href="/tournament"
+                onClick={() => toggleMobile(false)}
+                style={styles.headerLink}
+              >
+                <TmatText
+                  fontSize="48px"
+                  text="Bracket"
+                  variant="purple"
+                />
+              </Link>
+
+              <Link
+                href="/register"
+                onClick={() => toggleMobile(false)}
+                style={styles.headerLink}
+              >
+                <TmatText
+                  fontSize="48px"
+                  text="Register"
+                  variant="purple"
+                />
+              </Link>
+
+            </AppShell.Navbar>
+
+            {children}
+            <Footer />
+          </AppShell>
+        </MantineProvider>
+
+*/
