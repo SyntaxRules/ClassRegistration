@@ -10,6 +10,11 @@
       "StackName": "amplify-classregistration-dev-11449",
       "StackId": "arn:aws:cloudformation:us-east-1:851725484553:stack/amplify-classregistration-dev-11449/b8a69890-b4ff-11ee-bc28-0a463bdd5c3d",
       "AmplifyAppId": "dfedahktsgynl"
+    },
+    "categories": {
+      "api": {
+        "classregistration": {}
+      }
     }
   }
 }
