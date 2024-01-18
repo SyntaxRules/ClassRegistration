@@ -1,7 +1,7 @@
 'use client';
 
 import {
-  Grid, Paper, Container, Checkbox, Title, Button, Divider,
+  Grid, Paper, Container, Checkbox, Title, Button, Divider, Group,
 } from '@mantine/core';
 import { useState } from 'react';
 
@@ -47,7 +47,7 @@ const data = {
       { name: 'Little Learners', ageRange: '0-3' },
       { name: 'P.E. Ready, Set, Play!', ageRange: 'Pre-K' },
       { name: 'First Nations', ageRange: 'LE' },
-      { name: 'Spool KLnitting', ageRange: 'LE' },
+      { name: 'Spool Knitting', ageRange: 'LE' },
       { name: 'Folklore', ageRange: '8-10' },
       { name: 'Art Projects', ageRange: 'UE' },
       { name: 'Spanish', ageRange: 'UE + Middle' },
@@ -62,8 +62,15 @@ const data = {
       { name: 'Creative Writing + Refl.', ageRange: 'Middle' },
     ],
   },
-
 };
+const ageGroups = Array.from(
+  new Set(
+    Object.keys(data.classes)
+      .map((key) => data.classes[key])
+      .flat()
+      .map((x) => x.ageRange),
+  ),
+);
 
 const Home = () => {
   const [selections, setSelections] = useState({
@@ -72,49 +79,100 @@ const Home = () => {
     thirdPeriod: '',
     fourthPeriod: '',
   });
+  const [filters, setFilters] = useState([]);
+
   return (
     <Container
       mt="84px"
+      pb="100px"
     >
       <Grid
         justify="center"
       >
-        {
-            Object.keys(data.classes).map((key) => (
+        <Grid.Col
+          span={{ base: 12 }}
+        >
+          <Paper
+            p="md"
+            shadow="md"
+            withBorder
+          >
+            <Grid>
               <Grid.Col
-                key={key}
-                span={{ base: 12, md: 6 }}
+                span={{ base: 12 }}
+                style={{ textAlign: 'center' }}
               >
-                <Paper
-                  p="md"
-                  shadow="md"
-                  withBorder
+                <Title
+                  order={2}
                 >
-                  <Title
-                    order={2}
-                  >
-                    {`${data.timesLookup[key]}, ${data.times[key]}` }
-                  </Title>
+                  AGE FILTERS
+                </Title>
+              </Grid.Col>
+              {ageGroups.map((ag) => (
+                <Grid.Col
+                  key={`${ag}`}
+                  span={{ base: 12, md: 2 }}
+                >
+                  <Checkbox
+                    checked={filters.includes(ag)}
+                    label={ag}
+                    mb="sm"
+                    onChange={() => {
+                      if (filters.includes(ag)) {
+                        setFilters(filters.filter((f) => f !== ag));
+                      } else {
+                        setFilters([...filters, ag]);
+                      }
+                    }}
+                  />
+                </Grid.Col>
+              ))}
+            </Grid>
+          </Paper>
 
-                  {data.classes[key].map((value) => (
+        </Grid.Col>
+        {Object.keys(data.classes).map((key) => (
+          <Grid.Col
+            key={key}
+            span={{ base: 12, md: 6 }}
+            style={{ textAlign: 'center' }}
+          >
+            <Paper
+              p="md"
+              shadow="md"
+              withBorder
+            >
+              <Title
+                mb="md"
+                order={2}
+              >
+                {`${data.timesLookup[key]}, ${data.times[key]}` }
+              </Title>
+
+              {data.classes[key].map((value) => (
+                <div key={`${key}_${value.name}`}>
+                  {filters.length === 0 || filters.includes(value.ageRange) ? (
                     <Checkbox
-                      key={`${key}_${value}`}
                       checked={selections[key] === value.name}
-                      // color="#523f91"
-                      // disabled={!newPlayer.viewedWaiver}
                       label={`${value.name} || ${value.ageRange}`}
                       mb="sm"
-                      onChange={() => setSelections({
-                        ...selections,
-                        [key]: value.name,
-                      })}
+                      onChange={() => {
+                        if (selections[key] === value.name) {
+                          setSelections({ ...selections, [key]: '' });
+                        } else {
+                          setSelections({
+                            ...selections,
+                            [key]: value.name,
+                          });
+                        }
+                      }}
                     />
-                  ))}
-                </Paper>
-              </Grid.Col>
-            ))
-
-          }
+                  ) : null}
+                </div>
+              ))}
+            </Paper>
+          </Grid.Col>
+        ))}
         <Grid.Col
           span={{ base: 12, md: 8 }}
         >
@@ -124,32 +182,39 @@ const Home = () => {
             withBorder
           >
             <Title
+              mb="md"
               order={2}
+              style={{ textAlign: 'center' }}
             >
               My Selections
             </Title>
 
             {Object.keys(selections).map((key, index) => (
-              <>
-                <Title key={key} order={3}>{`${data.timesLookup[key]}: ${selections[key]}`}</Title>
+              <div key={Math.random()}>
+                <Group
+                  grow
+                  justify="space-between"
+                >
+                  <span>{data.timesLookup[key]}</span>
+                  <span>{selections[key]}</span>
+                </Group>
                 {index < Object.keys(selections).length - 1 ? (
                   <Divider my="sm" />
                 ) : null}
-              </>
+              </div>
 
             ))}
 
             <Button
               fullWidth
               mt="lg"
+              onClick={() => alert('TODO')}
               size="lg"
             >
               REGISTER
             </Button>
-
           </Paper>
         </Grid.Col>
-
       </Grid>
     </Container>
 

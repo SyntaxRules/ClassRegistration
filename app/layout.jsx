@@ -1,8 +1,11 @@
 'use client';
 
-import { MantineProvider, AppShell, Burger } from '@mantine/core';
+import {
+  MantineProvider, AppShell, Burger, Group,
+} from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import '@mantine/core/styles.css';
+import Link from 'next/link';
 
 // export const metadata = {
 //   title: 'Create Next App',
@@ -44,6 +47,9 @@ const RootLayout = ({ children }) => {
               withBorder={false}
             >
               <div>LOGO?</div>
+              <Group visibleFrom="md">
+                <Link href="/">SIGN IN</Link>
+              </Group>
               <Burger color="#523f91" hiddenFrom="md" onClick={toggleMobile} opened={mobileOpened} size="md" />
               {/* // <Header
               //   mobileOpened={mobileOpened}
@@ -52,8 +58,16 @@ const RootLayout = ({ children }) => {
             </AppShell.Header>
 
             <AppShell.Navbar p="md">
-              <div style={{ width: '100%', display: 'flex', flexDirection: 'row-reverse' }}>
-                <Burger color="#523f91" onClick={toggleMobile} opened={mobileOpened} size="md" />
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ width: '100%', display: 'flex', flexDirection: 'row-reverse' }}>
+                  <Burger color="#523f91" onClick={toggleMobile} opened={mobileOpened} size="md" />
+                </div>
+                <div style={{
+                  width: '100%', display: 'flex', flexDirection: 'row-reverse', marginTop: 16,
+                }}
+                >
+                  <Link href="/" visibleFrom="md">SIGN IN</Link>
+                </div>
               </div>
             </AppShell.Navbar>
 
