@@ -7,6 +7,13 @@
   resolved "https://registry.npmjs.org/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
+"@aws-amplify/adapter-nextjs@^1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@aws-amplify/adapter-nextjs/-/adapter-nextjs-1.0.12.tgz#7b82dbeb8fd520f775b3119760a99a52d1bc8c13"
+  integrity sha512-GZvfIZtZ8Q9Iqgigm/tjQT6+5/HFh8sWnXYV9qfFNNEVCNc3orS0SZtSEjGg5bKHHMZvYl1ZUlJcIyLuixpx6A==
+  dependencies:
+    cookie "0.5.0"
+
 "@aws-amplify/analytics@7.0.12":
   version "7.0.12"
   resolved "https://registry.npmjs.org/@aws-amplify/analytics/-/analytics-7.0.12.tgz"
@@ -1595,6 +1602,11 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
+
+cookie@0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.5.0.tgz#d1f5d71adec6558c58f389987c366aa47e994f8b"
+  integrity sha512-YZ3GUyn/o8gfKJlnlX7g7xq4gyO6OSuhGPKaaGssGB2qgDUS0gPgtTvoyZLTt9Ab6dC4hfc9dV5arkvc/OCmrw==
 
 cross-spawn@^7.0.2:
   version "7.0.3"
