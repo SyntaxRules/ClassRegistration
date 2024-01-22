@@ -5,7 +5,12 @@ import {
 } from '@mantine/core';
 import { useState } from 'react';
 
-const data = {
+import { generateServerClientUsingCookies } from '@aws-amplify/adapter-nextjs/api';
+import { cookies } from 'next/headers';
+import config from '../src/aws-exports';
+import { listClasses } from '../src/graphql/queries';
+
+const ddata = {
   timesLookup: {
     firstPeriod: 'First Period',
     secondPeriod: 'Second Period',
@@ -65,14 +70,19 @@ const data = {
 };
 const ageGroups = Array.from(
   new Set(
-    Object.keys(data.classes)
-      .map((key) => data.classes[key])
+    Object.keys(ddata.classes)
+      .map((key) => ddata.classes[key])
       .flat()
       .map((x) => x.ageRange),
   ),
 );
 
-const Home = () => {
+const cookiesClient = generateServerClientUsingCookies({
+  config,
+  cookies,
+});
+
+const Home = async () => {
   const [selections, setSelections] = useState({
     firstPeriod: '',
     secondPeriod: '',
@@ -80,6 +90,12 @@ const Home = () => {
     fourthPeriod: '',
   });
   const [filters, setFilters] = useState([]);
+
+  const { data } = await cookiesClient.graphql({
+    query: listClasses,
+  });
+  const classes = data.listClasses.items;
+  console.log(classes);
 
   return (
     <Container
@@ -89,6 +105,7 @@ const Home = () => {
       <Grid
         justify="center"
       >
+
         <Grid.Col
           span={{ base: 12 }}
         >
@@ -131,7 +148,7 @@ const Home = () => {
           </Paper>
 
         </Grid.Col>
-        {Object.keys(data.classes).map((key) => (
+        {Object.keys(ddata.classes).map((key) => (
           <Grid.Col
             key={key}
             span={{ base: 12, md: 6 }}
@@ -146,10 +163,10 @@ const Home = () => {
                 mb="md"
                 order={2}
               >
-                {`${data.timesLookup[key]}, ${data.times[key]}` }
+                {`${ddata.timesLookup[key]}, ${ddata.times[key]}` }
               </Title>
 
-              {data.classes[key].map((value) => (
+              {ddata.classes[key].map((value) => (
                 <div key={`${key}_${value.name}`}>
                   {filters.length === 0 || filters.includes(value.ageRange) ? (
                     <Checkbox
@@ -195,7 +212,7 @@ const Home = () => {
                   grow
                   justify="space-between"
                 >
-                  <span>{data.timesLookup[key]}</span>
+                  <span>{ddata.timesLookup[key]}</span>
                   <span>{selections[key]}</span>
                 </Group>
                 {index < Object.keys(selections).length - 1 ? (
