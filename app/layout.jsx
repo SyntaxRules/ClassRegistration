@@ -6,6 +6,13 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import '@mantine/core/styles.css';
 import Link from 'next/link';
+import { Amplify } from 'aws-amplify';
+import { generateClient } from 'aws-amplify/api';
+import config from '../src/amplifyconfiguration.json';
+
+Amplify.configure(config);
+
+const client = generateClient();
 
 // export const metadata = {
 //   title: 'Create Next App',
