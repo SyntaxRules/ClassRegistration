@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@aws-amplify/adapter-nextjs": "^1.0.12",
     "@mantine/core": "^7.4.1",
     "@mantine/hooks": "^7.4.1",
     "aws-amplify": "^6.0.12",
